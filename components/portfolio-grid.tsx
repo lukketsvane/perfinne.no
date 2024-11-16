@@ -1,70 +1,43 @@
 'use client'
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { useState } from 'react'
-
-function formatDate(dateString: string | null): string {
-  if (!dateString) return 'No date'
-  const date = new Date(dateString)
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
-}
+import Image from "next/image"
+import Link from "next/link"
 
 interface PortfolioItem {
   id: string
   slug: string
   title: string
-  date: string | null
   grid_image: string
-  category: string
 }
 
-export default function PortfolioGrid({ portfolioItems }: { portfolioItems: PortfolioItem[] }) {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+const fallbackImageUrl = '/placeholder.svg?height=320&width=320'
 
+export default function PortfolioGrid({ items }: { items: PortfolioItem[] }) {
   return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="container mx-auto px-4"
-    >
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {portfolioItems.map((item, index) => (
-          <Link href={`/portfolio/${item.slug}`} key={item.id}>
-            <motion.div 
-              className="group relative aspect-square overflow-hidden rounded-lg bg-gray-100"
-              onHoverStart={() => setHoveredIndex(index)}
-              onHoverEnd={() => setHoveredIndex(null)}
-            >
-              <Image
-                src={item.grid_image}
-                alt={item.title}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-              <motion.div
-                className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h2 className="text-lg font-medium">{item.title}</h2>
-                  <p className="text-sm opacity-80">{item.category}</p>
-                  <p className="text-sm mt-1">{formatDate(item.date)}</p>
-                </div>
-              </motion.div>
-            </motion.div>
-          </Link>
-        ))}
-      </div>
-    </motion.div>
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px">
+      {items.map((item) => (
+        <Link
+          key={item.id}
+          href={`/portfolio/${item.slug}`}
+          className="block aspect-square group relative overflow-hidden"
+        >
+          <Image
+            src={item.grid_image || fallbackImageUrl}
+            alt={item.title}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-110"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = fallbackImageUrl;
+            }}
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <span className="text-white text-sm font-light">{item.title}</span>
+          </div>
+        </Link>
+      ))}
+    </div>
   )
 }

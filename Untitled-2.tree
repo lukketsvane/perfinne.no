@@ -1,0 +1,60 @@
+/workspaces/perfinne.no/
+├─] .env.local (ignored)
+├── .eslintrc.json
+├── .gitignore
+├─] .next/ (ignored)
+├─] .vercel/ (ignored)
+├── README.md
+├── app/
+│   ├── about/
+│   │   └── page.tsx
+│   ├── contact/
+│   │   └── page.tsx
+│   ├── favicon.ico
+│   ├── fonts/
+│   │   ├── GeistMonoVF.woff
+│   │   └── GeistVF.woff
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── news/
+│   │   └── page.tsx
+│   ├── page.tsx
+│   ├── portfolio/
+│   │   ├── [slug]/
+│   │   │   └── page.tsx
+│   │   └── page.tsx
+│   └── project/
+│       └── [slug]/
+│           └── page.tsx
+├── components/
+│   ├── app-page.tsx
+│   ├── portfolio-grid.tsx
+│   └── ui/
+│       ├── button.tsx
+│       ├── input.tsx
+│       └── textarea.tsx
+├── components.json
+├── content/
+│   └── projects/
+├── lib/
+│   ├── db.ts
+│   ├── mdx.ts
+│   ├── supabase.ts
+│   └── utils.ts
+├─] next-env.d.ts (ignored)
+├── next.config.mjs
+├─] node_modules/ (ignored)
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── public/
+│   └── fonts/
+│       ├── FuturaCyrillicBold.ttf
+│       ├── FuturaCyrillicBook.ttf
+│       ├── FuturaCyrillicDemi.ttf
+│       ├── FuturaCyrillicExtraBold.ttf
+│       ├── FuturaCyrillicHeavy.ttf
+│       ├── FuturaCyrillicLight.ttf
+│       └── FuturaCyrillicMedium.ttf
+├── tailwind.config.ts
+└── tsconfig.json
