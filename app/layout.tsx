@@ -1,4 +1,6 @@
 import localFont from 'next/font/local'
+import { Header } from '@/components/header'
+import { Footer } from '@/components/footer'
 import './globals.css'
 
 const futura = localFont({
@@ -44,8 +46,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${futura.variable}`}>
-      <body className="bg-white antialiased font-sans">
+      <body className="bg-white antialiased font-sans min-h-screen flex flex-col">
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   )
